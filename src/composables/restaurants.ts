@@ -43,3 +43,12 @@ export function useFetchRestaurant({ restaurantId }: { restaurantId: string | st
     },
   });
 }
+
+export function getAverageRestaurantRating(restaurant: Restaurant): number {
+  if (!restaurant?.reviews || restaurant.reviews.length === 0) {
+    return 0;
+  }
+  
+  const totalRating = restaurant.reviews.reduce((sum, review) => sum + review.rating, 0);
+  return Math.round((totalRating / restaurant.reviews.length) * 10) / 10; // Arrondi à 1 décimale
+}
