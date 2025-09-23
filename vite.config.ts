@@ -2,7 +2,7 @@ import path from 'node:path';
 import { defineConfig } from 'vite';
 import jsonServer from 'vite-plugin-simple-json-server';
 import Vue from '@vitejs/plugin-vue';
-import vuetify from 'vite-plugin-vuetify';
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import Pages from 'vite-plugin-pages';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
@@ -11,8 +11,8 @@ import Unocss from 'unocss/vite';
 export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
-      '@/': `${path.resolve(__dirname, ``)}/`,
-      '~/': `${path.resolve(__dirname, `src`)}/`,
+   '@/': `${path.resolve(__dirname, ``)}/`,
+   '~/': `${path.resolve(__dirname, `src`)}/`,
     },
   },
 
@@ -26,9 +26,12 @@ export default defineConfig(({ mode }) => ({
     Vue({
       include: [/\.vue$/],
       reactivityTransform: false,
+      template: { transformAssetUrls },
     }),
 
-    vuetify(),
+    vuetify({
+      autoImport: true,
+    }),
 
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
@@ -63,6 +66,10 @@ export default defineConfig(({ mode }) => ({
     // see unocss.config.ts for config
     Unocss(),
   ],
+
+  optimizeDeps: {
+    exclude: [`vuetify`],
+  },
 
   // https://github.com/vitest-dev/vitest
   test: {
