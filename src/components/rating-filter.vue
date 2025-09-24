@@ -7,18 +7,22 @@ const ratingFilterItems = [
   { title: `2 stars or more`, value: 2 },
   { title: `1 star or more`, value: 1 },
 ];
+
+const selectedRating = defineModel<number>({ default: 0 });
 </script>
 
 <template>
   <VCard variant="outlined">
-    <VAlert type="info">
-      TODO: this is a bonus! <br>
-      Implement the rating filter
-    </VAlert>
     <VCardText>
       <div class="flex flex-wrap items-center justify-between gap-8">
         <strong>Filter the restaurants by ratings</strong>
-        <VSelect :items="ratingFilterItems" variant="solo" hide-details="auto" placeholder="all restaurants" />
+        <VSelect 
+          v-model="selectedRating"
+          :items="ratingFilterItems" 
+          variant="solo" 
+          hide-details="auto" 
+          placeholder="all restaurants" 
+        />
       </div>
     </VCardText>
   </VCard>
