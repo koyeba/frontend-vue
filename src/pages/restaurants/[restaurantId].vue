@@ -54,7 +54,11 @@ const averageRating = computed(() =>
     </VCard>
     <aside>
       <ul class="pa-0">
-        <RestaurantReview />
+        <RestaurantReview 
+          v-for="review in restaurant?.reviews" 
+          :key="review.id"
+          :review="review"
+        />
       </ul>
     </aside>
   </div>
