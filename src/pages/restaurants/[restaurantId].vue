@@ -7,9 +7,10 @@ const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.
 
 <template>
   <VAlert v-if="isError" type="warning" class="mt-4">
-    TODO: It might be an Fetch error
-    <br>
-    You should fix that
+    Restaurant introuvable.
+  <VBtn variant="text" size="small" @click="$router.push('/')" class="ml-2">
+    Retour à la liste
+  </VBtn>
   </VAlert>
   <div v-else class="grid grid-cols-[minmax(0,_1fr)_16rem] gap-6">
     <VCard v-if="restaurant">
